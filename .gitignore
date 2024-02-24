@@ -1,0 +1,4 @@
+output/**
+backup/**
+dataset/**
+__pycache__/**
