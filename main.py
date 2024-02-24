@@ -12,7 +12,7 @@ warnings.filterwarnings("ignore")
 ProgressBar().register()
 Path("./output").mkdir(parents=True, exist_ok=True)
 
-# print("Preparing files...")
+print("Preparing files...")
 [prices_dataset, prices_per_year_dataset] = generate_derived_files()
 
 cluster = Cluster(
@@ -29,7 +29,7 @@ corr = Correlate(
 )
 plotter = Plotter()
 
-# print("Generate clusters...")
+print("Generate clusters...")
 cluster.generate_clusters("output/clusters.html")
 statistics = cluster.generate_statistics("output/statistics.txt")
 
@@ -49,6 +49,14 @@ plotter.plot_bars(
     "# Listings", 
     "Yearly Number of Listings by Cluster",
     output_file="output/number_listings_by_cluster_year.png"
+)
+
+print("Plotting Traits...")
+plotter.plot(
+    corr.run(field_to_correlate='price sum'),
+    'Revenues',
+    'Traits',
+    output_file="output/traits.png"
 )
 
 print("Plotting Safety Features...")
